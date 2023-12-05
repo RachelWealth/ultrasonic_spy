@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+</head>
+<body>
+<input type="file" accept="image/*" onchange="handleFileSelect(event)">
+<img id="selectedImage" style="max-width: 100%; max-height: 300px; margin-top: 20px;">
+
+<script>
+    function handleFileSelect(event) {
+        const input = event.target;
+        if ('files' in input && input.files.length > 0) {
+            const file = input.files[0];
+            displayImage(file);
+        }
+    }
+
+    function displayImage(file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const imgElement = document.getElementById('selectedImage');
+            imgElement.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+</script>
+</body>
+</html>

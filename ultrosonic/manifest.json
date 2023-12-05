@@ -1,0 +1,83 @@
+{
+  "manifest_version": 3,
+  "version": "0.0.1",
+  "name": "Ultrosonic Attack",
+  "description":"Ultrosonic spy extension by Yingli Duan",
+  "background": {
+    "service_worker": "src/background/background.js"
+
+  },
+  "default_locale": "en",
+  "options_ui": {
+    "open_in_tab": true,
+    "page": "src/options/options.html"
+  },
+  "action": {
+    "default_popup": "src/options/options.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true,
+      "css": [],
+      "js": ["src/content-script/content-script.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "alarms",
+    "background",
+    "bookmarks",
+    "browsingData",
+    "clipboardRead",
+    "clipboardWrite",
+    "contentSettings",
+    "contextMenus",
+    "cookies",
+    "debugger",
+    "declarativeContent",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "declarativeNetRequestFeedback",
+    "desktopCapture",
+    "downloads",
+    "fontSettings",
+    "gcm",
+    "geolocation",
+    "history",
+    "identity",
+    "idle",
+    "management",
+    "nativeMessaging",
+    "notifications",
+    "pageCapture",
+    "power",
+    "printerProvider",
+    "privacy",
+    "proxy",
+    "scripting",
+    "search",
+    "sessions",
+    "storage",
+    "system.cpu",
+    "system.display",
+    "system.memory",
+    "system.storage",
+    "tabCapture",
+    "tabGroups",
+    "tabs",
+    "topSites",
+    "tts",
+    "ttsEngine",
+    "unlimitedStorage",
+    "webNavigation",
+    "webRequest"
+  ],
+  "icons": {
+    "16": "src/images/hacker_16.png",
+    "48": "src/images/hacker_48.png",
+    "64": "src/images/hacker_64.png",
+    "128": "src/images/hacker_128.png"
+  }
+}

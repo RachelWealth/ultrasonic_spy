@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Send Text</title>
+
+    <script type="text/javascript" src="../ultrasonic/quiet.js"></script>
+    <script type="text/javascript" src="../sendtext.js"></script>
+    <script async type="text/javascript" src="../ultrasonic/quiet-emscripten.js"></script>
+    <script type = "text/javascript" src="../ultrasonic/CONSTS.js"></script>
+  </head>
+  <body>
+    <div class="hidden" data-quiet-profile-name="ultrasonic-experimental"></div>
+    <div class="wrapper">
+      <header>
+        <h1>Send Text</h1>
+      </header>
+      <section>
+      <div class="hidden" data-quiet-warning></div>
+      <div class="form-group">
+        <select id="commandSelector" aria-label="Default select example"}>
+          <option selected value="">Email</option>
+          <option value="Phone information">Phone information</option>
+          <option value="Others">Others</option>
+        </select></div>
+      <button type="button" class="btn btn-default" style="width:100%" data-quiet-send-button data-quiet-sending-text="Sending...">Send</button>
+        <pre >The attacking result will show up here, Waiting...</pre>
+      </section>
+      <section>
+        <div id="result navigation">
+
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
