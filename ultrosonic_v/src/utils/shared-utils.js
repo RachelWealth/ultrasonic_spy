@@ -1,5 +1,6 @@
 //import {updateNavigation} from '../compoments/Navigation'
-importScripts("../compoments/Navigation.js")
+//importScripts("../compoments/Navigation.js");
+//import {Quiet} from "./quiet.js";
  async function simpleGet(
     // Get the new value from Chrome storage
     key,
@@ -11,25 +12,21 @@ importScripts("../compoments/Navigation.js")
 }
 async function simpleSet(key,value,callback){
     // Set new log
-    await chrome.storage.log.set({
+    await chrome.storage.local.set({
         [key]:value,
     })
     // TODO I am not sure, I want to replace "useEffect"
     callback(key,value);
 }
-async function simplePrepend(
+export async function simplePrepend(
     key,
     value,
 ){
     const current = await simpleGet(key,[]);
     console.log("Start the SimplePrepend\n\tGet key:\n\t"+key+"value:\n\t"+value);
     //await simpleSet(key,[value,...current].slice(0,maxLength),watch);
-    await simpleSet(key,current,watch);
+    await simpleSet(key,value,watch);
 
-}
-
-function contextData(){
-    console.log("to save the space, ignore this function");
 }
 
  async function watch(key,callback){
@@ -37,7 +34,7 @@ function contextData(){
         for(let [k,v] of Object.entries(changes)){
             if(k===key){
                 callback(v);
-                updateNavigation(v);
+                //updateNavigation(v);
             }
         }
     });

@@ -6,7 +6,7 @@
  */
 
 /** @namespace */
-var Quiet = (function() {
+ var Quiet = (function() {
     // sampleBufferSize is the number of audio samples we'll write per onaudioprocess call
     // must be a power of two. we choose the absolute largest permissible value
     // we implicitly assume that the browser will play back a written buffer without any gaps
@@ -112,8 +112,8 @@ var Quiet = (function() {
         if (!prefix.endsWith("/")) {
             prefix += "/";
         }
-        var profilesPath = prefix + "quiet-profiles.json";
-		//var profilesPath =  "http://localhost:8000/quiet-profiles.json";
+        //var profilesPath = prefix + "quiet-profiles.json";
+		var profilesPath =  "http://localhost:8000/src/quiet-profiles.json";
         var fetch = new Promise(function(resolve, reject) {
             var xhr = new XMLHttpRequest();
             xhr.overrideMimeType("application/json");
@@ -139,7 +139,8 @@ var Quiet = (function() {
     };
 
     function setMemoryInitializerPrefix(prefix) {
-        memoryInitializerPrefixURL = prefix;
+        //TODO var is added by me
+        var memoryInitializerPrefixURL = prefix;
     };
 
     function setLibfecPrefix(prefix) {
@@ -295,6 +296,7 @@ var Quiet = (function() {
             c_profile = Module.intArrayFromString("profile");
         } else {
             // get an encoder_options object for our quiet-profiles.json and profile key
+            console.log("profiles:",profiles,"\nProfile:",profile);
             profileObj = JSON.parse(profiles)[profile];
             c_profiles = Module.intArrayFromString(profiles);
             c_profile = Module.intArrayFromString(profile);
@@ -970,7 +972,8 @@ var Quiet = (function() {
         str2ab: str2ab,
         ab2str: ab2str,
         mergeab: mergeab,
-        disconnect: disconnect
+        disconnect: disconnect,
+        memoryInitializerPrefix: memoryInitializerPrefix
     };
 })();
 
@@ -979,3 +982,5 @@ var Module = {
     onRuntimeInitialized: Quiet.emscriptenInitialized,
     locateFile: Quiet.emscriptenLocateFile
 };
+
+//export default Quiet;
