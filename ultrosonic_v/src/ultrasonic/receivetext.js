@@ -18,7 +18,7 @@
 // }
 
 
-
+PROFILENAME = "ultrasonic-experimental";
 
 var TextReceiver = (function() {
     Quiet.init({
@@ -72,7 +72,7 @@ var TextReceiver = (function() {
 
     function onQuietReady() {
         console.log("Receiver onQuietReady");
-        var profilename = document.querySelector('[data-quiet-profile-name]').getAttribute('data-quiet-profile-name');
+        var profilename = PROFILENAME;
         var receiverOnReceive = function(payload) { onReceive(payload); };
         var receiverOnReceiverCreateFail = function(reason) { onReceiverCreateFail(reason); };
         var receiverOnReceiveFail = function(num_fails) { onReceiveFail(num_fails); };
@@ -108,6 +108,7 @@ var TextReceiver = (function() {
 })();
 
 
+
 var TextTransmitter = (function() {
     Quiet.init({
         profilesPrefix: "/",
@@ -134,8 +135,8 @@ var TextTransmitter = (function() {
     };
 
     function onQuietReady() {
-        transmit = Quiet.transmitter({profile: profilename, onFinish: onTransmitFinish});
-        console.log("Sender Send quiet ready");
+        transmit = Quiet.transmitter({profile: PROFILENAME, onFinish: onTransmitFinish});
+        console.log("Sender onQuietReady");
     };
 
     function onQuietFail(reason) {
@@ -146,24 +147,18 @@ var TextTransmitter = (function() {
         console.log("Sender initiate onDOMLoad");
         Quiet.addReadyCallback(onQuietReady, onQuietFail);
     };
-
-    function init(){
-        document.addEventListener("Sender DOMContentLoaded", onDOMLoad);
-    }
-
-    
+    document.addEventListener("DOMContentLoaded", onDOMLoad);   
 
     return {
-        init:init,
         getNewPrivacy: getNewPrivacy
     };
 })();
 
-TextTransmitter.init();
+//TextTransmitter.init();
 
 chrome.runtime.onMessage.addListener(async(message, sender, sendResponse)=> {
     console.log("In options: Message received in received:", message.message,sender);
 
-    //await TextTransmitter.getNewPrivacy(message.message);
+    await TextTransmitter.getNewPrivacy(message.message);
     //await sendInformation(message.message);
 })

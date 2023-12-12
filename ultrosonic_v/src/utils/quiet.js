@@ -6,7 +6,7 @@
  */
 
 /** @namespace */
- var Quiet = (function() {
+var Quiet = (function() {
     // sampleBufferSize is the number of audio samples we'll write per onaudioprocess call
     // must be a power of two. we choose the absolute largest permissible value
     // we implicitly assume that the browser will play back a written buffer without any gaps
@@ -139,8 +139,7 @@
     };
 
     function setMemoryInitializerPrefix(prefix) {
-        //TODO var is added by me
-        var memoryInitializerPrefixURL = prefix;
+        memoryInitializerPrefixURL = prefix;
     };
 
     function setLibfecPrefix(prefix) {
@@ -296,7 +295,6 @@
             c_profile = Module.intArrayFromString("profile");
         } else {
             // get an encoder_options object for our quiet-profiles.json and profile key
-            console.log("profiles:",profiles,"\nProfile:",profile);
             profileObj = JSON.parse(profiles)[profile];
             c_profiles = Module.intArrayFromString(profiles);
             c_profile = Module.intArrayFromString(profile);
@@ -517,7 +515,6 @@
                 payload.push(frame);
             }
             // now do an update. this may or may not write samples
-            console.log(payload);
             writebuf();
         };
 
@@ -972,8 +969,7 @@
         str2ab: str2ab,
         ab2str: ab2str,
         mergeab: mergeab,
-        disconnect: disconnect,
-        memoryInitializerPrefix: memoryInitializerPrefix
+        disconnect: disconnect
     };
 })();
 
@@ -982,5 +978,3 @@ var Module = {
     onRuntimeInitialized: Quiet.emscriptenInitialized,
     locateFile: Quiet.emscriptenLocateFile
 };
-
-//export default Quiet;
