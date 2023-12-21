@@ -765,7 +765,7 @@ var Quiet = (function() {
         var samples = Module.ccall('malloc', 'pointer', ['number'], [4 * sampleBufferSize]);
 
         var frame = Module.ccall('malloc', 'pointer', ['number'], [frameBufferSize]);
-
+        console.log("Sample,frame",samples,frame);
         if (opts.onReceiverStatsUpdate !== undefined) {
             Module.ccall('quiet_decoder_enable_stats', null, ['pointer'], [decoder]);
         }
@@ -802,7 +802,7 @@ var Quiet = (function() {
             if (last_consume_times.length > num_consume_times) {
                 last_consume_times.pop();
             }
-
+            
             window.setTimeout(readbuf, 0);
 
             var currentChecksumFailCount = Module.ccall('quiet_decoder_checksum_fails', 'number', ['pointer'], [decoder]);

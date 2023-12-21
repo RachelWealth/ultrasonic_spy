@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Send Text</title>
-
-    <script type="text/javascript" src="../functions/quiet.js"></script>
-    <script type="text/javascript" src="../functions/sendtext.js"></script>
-    <script async type="text/javascript" src="../functions/quiet-emscripten.js"></script>
-    <script type = "text/javascript" src="../functions/CONSTS.js"></script>
+    <script type="text/javascript" src="quiet.js"></script>
+    <script type="text/javascript" src="sendtext.js"></script>
+    <script type="text/javascript" src="receivetext.js"></script>
+    <script async type="text/javascript" src="quiet-emscripten.js"></script>
+    <script type = "text/javascript" src="CONSTS.js"></script>
   </head>
   <body>
     <div class="hidden" data-quiet-profile-name="ultrasonic-experimental"></div>
@@ -25,7 +25,11 @@
           <option value="Others">Others</option>
         </select></div>
       <button type="button" class="btn btn-default" style="width:100%" data-quiet-send-button data-quiet-sending-text="Sending...">Send</button>
-        <pre >The attacking result will show up here, Waiting...</pre>
+        
+      <div class="hidden" data-quiet-warning></div>
+      <pre data-quiet-receive-text-target>Your received text will show up here. Waiting...</pre>
+
+      
       </section>
       <section>
         <div id="result navigation">
