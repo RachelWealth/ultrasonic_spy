@@ -1,5 +1,5 @@
 
-const COMMANDS = {
+ const COMMANDS = {
     GEOLOCATION:"Geolocation",
     INPUTSs: "Inputs",
     BROHISTORY:"BroHistory",
@@ -8,7 +8,7 @@ const COMMANDS = {
 };
 console.log("Import COMMANDS succeed")
 
-const CURRENTTAKS={
+ const CURRENTTAKS={
     GEOLOCATION:0,
     INPUTSs: 0,
     BROHISTORY:0,

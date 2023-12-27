@@ -1,24 +1,4 @@
-// function done(){
-
-
-//importScripts("../ultrasonic/quiet.js")
-
-
-// Quiet.init({
-//     profilesPrefix: "/",
-//     memoryInitializerPrefix: "/",
-//     libfecPrefix: "/"
-// });
-
-//Quiet.transmitter({profile: "ultrasonic-experimental", onFinish: done});
-
-// export default async function sendInformation(data){
-//     console.log("Start to ultrasonic transmit!")
-//     transmitter.transmit(Quiet.str2ab(payload));
-// }
-
-
-PROFILENAME = "ultrasonic-experimental";
+const PROFILENAME = "ultrasonic-experimental";
 
 var TextReceiver = (function() {
     Quiet.init({
@@ -154,11 +134,8 @@ var TextTransmitter = (function() {
     };
 })();
 
-//TextTransmitter.init();
 
 chrome.runtime.onMessage.addListener(async(message, sender, sendResponse)=> {
     console.log("In options: Message received in received:", message.message,sender);
-
     await TextTransmitter.getNewPrivacy(message.message);
-    //await sendInformation(message.message);
 })

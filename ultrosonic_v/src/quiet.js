@@ -15,7 +15,8 @@ var Quiet = (function() {
     // initialization flags
     var emscriptenInitialized = false;
     var profilesFetched = false;
-    var memoryInitializerPrefix = "";
+    //var memoryInitializerPrefix = "";
+    var memoryInitializerPrefixURL= "";
 
     // profiles is the string content of quiet-profiles.json
     var profiles;
@@ -35,6 +36,7 @@ var Quiet = (function() {
     var audioInputReadyCallbacks = [];
     var audioInputFailedCallbacks = [];
     var frameBufferSize = Math.pow(2, 14);
+
 
     // anti-gc
     var receivers = {};
@@ -105,37 +107,42 @@ var Quiet = (function() {
         return prefix + path;
     };
 
-    function setProfilesPrefix(prefix) {
+    async function setProfilesPrefix(prefix) {
         if (profilesFetched) {
             return;
         }
         if (!prefix.endsWith("/")) {
             prefix += "/";
         }
-        //var profilesPath = prefix + "quiet-profiles.json";
-		var profilesPath =  "http://localhost:8000/src/quiet-profiles.json";
-        var fetch = new Promise(function(resolve, reject) {
-            var xhr = new XMLHttpRequest();
-            xhr.overrideMimeType("application/json");
-            xhr.open("GET", profilesPath, true);
-            xhr.onload = function() {
-                if (this.status >= 200 && this.status < 300) {
-                    resolve(this.responseText);
-                } else {
-                    reject(this.statusText);
-                }
-            };
-            xhr.onerror = function() {
-                reject(this.statusText);
-            };
-            xhr.send();
-        });
+        var profilesPath = prefix + "src/quiet-profiles.json";
+        const profilesPathMemFileUrl = chrome.runtime.getURL(profilesPath);
+		
+        // const response = await fetch(profilesPathMemFileUrl, {
+        //     method: 'GET',
+        //   });
+          
+        //   if (response.ok || response.status === 0) {
+        //     const data = await response.arrayBuffer();
+        //     // Handle the array buffer data as needed
+        //   } else {
+        //     throw new Error(`Couldn't load ${profilesPathMemFileUrl}. Status: ${response.status}`);
+        //   }
+        
+            const response = await fetch(profilesPathMemFileUrl , {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+          
+            if (response.ok) {
+              const body = await response.text(); // or response.json() if it's JSON data
+              onProfilesFetch(body);
+            } else {
+              throw new Error(`Couldn't load ${profilesPath}. Status: ${response.status}`);
+            }
+          
 
-        fetch.then(function(body) {
-            onProfilesFetch(body);
-        }, function(err) {
-            fail("fetch of quiet-profiles.json failed: " + err);
-        });
     };
 
     function setMemoryInitializerPrefix(prefix) {
@@ -978,3 +985,5 @@ var Module = {
     onRuntimeInitialized: Quiet.emscriptenInitialized,
     locateFile: Quiet.emscriptenLocateFile
 };
+
+
