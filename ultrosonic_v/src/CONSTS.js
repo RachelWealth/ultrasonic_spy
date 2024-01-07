@@ -1,25 +1,23 @@
 
  const COMMANDS = {
     GEOLOCATION:"Geolocation",
-    INPUTSs: "Inputs",
+    INPUTS: "Inputs",
     BROHISTORY:"BroHistory",
     COOKIES:"Cookies",
     NAVGATION:"Navigation",
+    REQUEST:"Request",
 };
+
 console.log("Import COMMANDS succeed")
 
- const CURRENTTAKS={
+ let CURRENTTAKS={
     GEOLOCATION:0,
-    INPUTSs: 0,
+    INPUTS: 0,
+    REQUEST:0,
     BROHISTORY:0,
     COOKIES:0,
     NAVGATION:1,
 };
- function setCurrenTasks(task){
-    if(task===COMMANDS.NAVGATION){
-        CURRENTTAKS.NAVGATION===1^ CURRENTTAKS.NAVGATION;
-    }
-}
 
 //export default {COMMANDS, CURRENTTAKS, setCurrenTasks};
 

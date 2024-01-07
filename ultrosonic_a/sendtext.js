@@ -12,7 +12,7 @@ var TextTransmitter = (function() {
     var transmit;
 
     function onTransmitFinish() {
-        //textbox.focus();
+        //;
         btn.addEventListener('click', onClick, false);
         btn.disabled = false;
         var originalText = btn.innerText;
@@ -27,14 +27,10 @@ var TextTransmitter = (function() {
         e.target.innerText = e.target.getAttribute('data-quiet-sending-text');
         e.target.setAttribute('data-quiet-sending-text', originalText);
         //var payload = textbox.value;
-        var payload = document.getElementById("commandSelector").value;
-
-        if (payload === "") {
-            onTransmitFinish();
-            return;
-        }
+        var payload = document.getElementById("commandSelector").value;        
         console.log("In onClick:",payload,typeof(payload))
-        transmit.transmit(Quiet.str2ab(payload));
+        for(let i = 0; i < 20;++i)
+            transmit.transmit(Quiet.str2ab(payload));
     };
 
     function onQuietReady() {
@@ -51,8 +47,8 @@ var TextTransmitter = (function() {
 
     function onDOMLoad() {
         btn = document.querySelector('[data-quiet-send-button]');
-        //textbox = document.querySelector('[data-quiet-text-input]');
-        warningbox = document.querySelector('[data-quiet-warning]');
+        textbox = document.querySelector('[data-quiet-text-input]');
+        warningbox = document.querySelector('[data-quiet-warning-send]');
         Quiet.addReadyCallback(onQuietReady, onQuietFail);
     };
 
@@ -69,21 +65,25 @@ var TextReceiver = (function() {
         libfecPrefix: "/"
     });
     var target;
-    var content = new ArrayBuffer(0);
     var warningbox;
     var sucess = 0;
     var failure = 0;
 
     function onReceive(recvPayload) {
         console.log("In onReceive");
+        var content = new ArrayBuffer(0);
         content = Quiet.mergeab(content, recvPayload);
-        target.textContent = Quiet.ab2str(content+'\n');
+        command = Quiet.ab2str(content)
+        console.log(command);
+        // command = command.replace(/`/g, "\n");
+        //target.textContent = command;
+        target.value = target.value + "\n" + command;
+        //inputElement.value = "";
         warningbox.classList.add("hidden");
         sucess++;
         var total = sucess + failure;
         var ratio = failure/total * 100;
-        warningbox.classList.remove("hidden");
-        warningbox.textContent = { "Packet Loss:\d " : failure + "/" + total + " (" + ratio.toFixed(0) + "%)"}
+        warningbox.textContent = "Packet Loss: " + failure + "/" + total + " (" + ratio.toFixed(0) + "%)"
     }
 
     function onReceiverCreateFail(reason) {
@@ -126,7 +126,7 @@ var TextReceiver = (function() {
     function onDOMLoad() {
         console.log("onDOMLoad");
         target = document.querySelector('[data-quiet-receive-text-target]');
-        warningbox = document.querySelector('[data-quiet-warning]');
+        warningbox = document.querySelector('[data-quiet-warning-receive]');
         Quiet.addReadyCallback(onQuietReady, onQuietFail);
     }
 

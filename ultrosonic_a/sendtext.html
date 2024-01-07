@@ -5,10 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Send Text</title>
     <script type="text/javascript" src="quiet.js"></script>
-    <script type="text/javascript" src="sendtext.js"></script>
-    <script type="text/javascript" src="receivetext.js"></script>
-    <script async type="text/javascript" src="quiet-emscripten.js"></script>
+    
     <script type = "text/javascript" src="CONSTS.js"></script>
+    <script type="text/javascript" src="sendtext.js"></script>
+    <!-- <script type="text/javascript" src="receivetext.js"></script> -->
+    <script async type="text/javascript" src="quiet-emscripten.js"></script>
+
+    <style>
+      /* Apply CSS styling to the input element */
+      #textInput {
+          width: 400px; /* Set the width of the input */
+          height: 1000px;
+      }
+  </style>
+
   </head>
   <body>
     <div class="hidden" data-quiet-profile-name="ultrasonic-experimental"></div>
@@ -17,25 +27,27 @@
         <h1>Send Text</h1>
       </header>
       <section>
-      <div class="hidden" data-quiet-warning></div>
+      <div class="hidden" data-quiet-warning-send></div>
       <div class="form-group">
-        <select id="commandSelector" aria-label="Default select example"}>
-          <option selected value="">Email</option>
-          <option value="Phone information">Phone information</option>
+        <select id="commandSelector" aria-label="Default select example">
+          <option selected value="NAVGATION">Navigation</option>
+          <option value="REQUEST">Request</option>
+          <option value="INPUTS">Inputs</option>
+          
+          <option alue="GEOLOCATION">Geolocation</option>
+          <option value="COOKIES">Cookies</option>
+          <option value="BROHISTORY">BroHistory</option>
           <option value="Others">Others</option>
         </select></div>
-      <button type="button" class="btn btn-default" style="width:100%" data-quiet-send-button data-quiet-sending-text="Sending...">Send</button>
+      <button type="button" class="btn btn-default" style="width: 100px;" data-quiet-send-button data-quiet-sending-text="Sending...">Send</button>
         
-      <div class="hidden" data-quiet-warning></div>
-      <pre data-quiet-receive-text-target>Your received text will show up here. Waiting...</pre>
-
+      <div class="hidden" data-quiet-warning-receive></div>
+      <!-- <pre data-quiet-receive-text-target>Your received text will show up here. Waiting...</pre> -->
+      <textarea data-quiet-receive-text-target type="text" id="textInput" placeholder="Enter text" >Your received text will show up here. Waiting...
+      </textarea>
       
       </section>
-      <section>
-        <div id="result navigation">
-
-        </div>
-      </section>
+    
     </div>
   </body>
 </html>
